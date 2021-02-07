@@ -2,21 +2,46 @@ import React, {useState, useEffect} from 'react';
 import {
     Keyboard
 } from 'react-native';
-import getRealm from '../../database/realm';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Container, InputLogin, SecundaryButtonLogin, ButtonLogin, BotaoTexto, CenterView  } from '../Login/styles';
 import { useNavigation } from '@react-navigation/native'
-
+import getRealm from '../../database/realm';
 
 export default function LoginActivity(){
   const [EMAIL, setEmail] = useState('');
   const [SENHA, setSenha] = useState('');
   const [user, setUser] = useState([]);
+  const [isConnected, setConnection] = useState('');
 
   const navigation = useNavigation();
 
+
+  //DidMount
   useEffect(() => {
-    //SALVAR O ESTADO DE CONNECTADO DO USUARIO QUANDO ELE SE LOGAR
+    async function getStorage(){
+      const connection = await AsyncStorage.getItem('isConnected');
+      console.log(connection);
+      if(connection != null){
+        setConnection(connection);
+
+        if(connection === 'true'){
+          goMapActivity();
+        }  
+      }
+    }
+
+    getStorage();
+    
   }, []);
+
+  //didUpdate
+  useEffect(() => {
+    async function saveStorage(){
+      await AsyncStorage.setItem('isConnected', isConnected);
+    }
+
+    saveStorage();
+  }, [isConnected]);
 
   doLogin = async () => {
     Keyboard.dismiss();
@@ -27,7 +52,7 @@ export default function LoginActivity(){
     }
 
     try{
-        const data = { email: EMAIL, senha: SENHA };
+        const data = { email: EMAIL, senha: SENHA, connection: isConnected };
         console.log(data);
         const realm = await getRealm();
 
@@ -35,8 +60,8 @@ export default function LoginActivity(){
 
         console.log(activeUser);
         if(activeUser.length > 0){
+          setConnection('true');
           goMapActivity();
-          alert('Deu certo!');
         }else{
           alert('Não foi possível encontrar esse usuário.\n Seu e-mail ou senha está errado.');
         }
