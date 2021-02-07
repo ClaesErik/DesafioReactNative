@@ -7,7 +7,7 @@ export default class UserDao{
             nome: 'string',
             email: 'string',
             senha: 'string',
-            isConnected: 'boolean'
+            isConnected: 'bool'
 
         }
     }
