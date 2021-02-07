@@ -1,99 +1,28 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {
-    Keyboard
+    View
 } from 'react-native';
-import getRealm from './database/realm';
-import { Container, InputLogin, SecundaryButtonLogin, ButtonLogin, BotaoTexto, CenterView  } from './styles';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
+import LoginActivity from './pages/Login/LoginActivity';
+import ReactMapActivity from './pages/ReactMap/ReactMapActvity';
+import CadastroActivity from './pages/Cadastro/CadastroActivity';
+import EsqueceuSenhaActivity from './pages/EsqueceuSenha/EsqueceuSenhaActivity';
+
+const Stack = createStackNavigator();
 
 export default function App(){
-  const [EMAIL, setEmail] = useState('');
-  const [SENHA, setSenha] = useState('');
-  const [user, setUser] = useState([]);
-
-  useEffect(() => {
-    loadUser = async () => {
-        // const realm = await getRealm();
-        // const data = realm.objects('User');
-
-
-        // setUser(data);
-        // realm.close();
-    }
-
-    loadUser();
-  }, []);
-
-  doLogin = async () => {
-    if(EMAIL === '' || SENHA === ''){
-        alert('Preencha todos os campos!');
-        return;
-    }
-
-    try{
-        const data = { email: EMAIL, senha: SENHA };
-        console.log(data);
-        const realm = await getRealm();
-
-        const activeUser = realm.objects("User").filtered('email = $0 AND senha = $1', data.email, data.senha);
-
-        console.log(activeUser);
-        if(activeUser.length != 0){
-          // Avançar para a tela de mapa.
-          alert('Deu certo!');
-        }else{
-          alert('Não foi possível encontrar esse usuário.\n Seu e-mail ou senha está errado.');
-        }
-
-        setEmail('');
-        setSenha('');
-        Keyboard.dismiss();
-
-    }catch(err){
-        alert(err);
-    }
-  }
-
   
-
-
   return(
-    <Container>
-      <InputLogin
-      autoCapitalize="none"
-      autoCorrect={false} 
-      value={EMAIL}
-      placeholder={"Email"}
-      onChangeText={ (texto) => setEmail(texto) }
-      />
-
-      <InputLogin
-      autoCapitalize="none"
-      autoCorrect={false} 
-      value={SENHA}
-      placeholder={"Senha"}
-      onChangeText={ (texto) => setSenha(texto) }
-      />
-
-      <ButtonLogin onPress={doLogin}>
-        <BotaoTexto>Entrar</BotaoTexto>
-      </ButtonLogin>
-
-      <CenterView>
-
-        <SecundaryButtonLogin>
-          <BotaoTexto>Cadastrar</BotaoTexto>
-        </SecundaryButtonLogin>
-        
-        <SecundaryButtonLogin>
-          <BotaoTexto>Esqueceu a senha</BotaoTexto>
-        </SecundaryButtonLogin>
-        
-      </CenterView>
-
-
-    </Container>
-
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Login" component={LoginActivity} options={{headerShown: false}} />
+        <Stack.Screen name="Cadastro" component={CadastroActivity}/>
+        <Stack.Screen name="ReactMap" component={ReactMapActivity} />
+        <Stack.Screen name="Esqueceu a Senha" component={EsqueceuSenhaActivity} />
+      </Stack.Navigator>
+    </NavigationContainer>
 
   );
 
