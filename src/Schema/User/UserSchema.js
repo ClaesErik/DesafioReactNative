@@ -1,4 +1,4 @@
-export default class UserDao{
+export default class UserSchema{
     static schema = {
         name: 'User',
         primaryKey: 'id',

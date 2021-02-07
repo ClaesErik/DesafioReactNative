@@ -1,8 +1,8 @@
-import Realm from 'realm';
-import UserDao from '../Dao/User/UserDao';
+import Realm, { User } from 'realm';
+import UserSchema from '../Dao/User/UserSchema';
 
 export default function getRealm(){
     return Realm.open({
-        schema: [UserDao]
+        schema: [UserSchema]
     })
 }
