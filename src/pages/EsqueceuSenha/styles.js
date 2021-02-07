@@ -34,12 +34,3 @@ export const BotaoTexto = styled.Text`
     font-weight: bold;
     
 `;
-
-export const CenterView = styled.View`
-    align-items: center;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-left: 19px;
-    margin-right: 19px;
-`;
-
