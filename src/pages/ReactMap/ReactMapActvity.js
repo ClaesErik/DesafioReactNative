@@ -8,6 +8,7 @@ import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
 import api from '../../services/api'
+import { useNavigation } from '@react-navigation/native'
 
 
 import {apiKeyMaps} from '../../utils';
@@ -16,8 +17,9 @@ export default function ReactMapActivity() {
   const [LAT, setLat] = useState(-23.6131);
   const [LNG, setLng] = useState(-46.6912);
   const [isConnected, setConnection] = useState('false');
+  const [places, setPlaces] = useState([]);
 
-  
+  const navigation = useNavigation();
 
   useEffect(() => {
     async function livePosition(){
@@ -81,11 +83,17 @@ export default function ReactMapActivity() {
             places.push(place);         
      }
      console.log(places);
+     setPlaces(places);
+     goToLugarActivity();
     } catch (error) {
       console.log(error);      
     }
     
   }
+
+  // function goToLugarActivity(){
+  //   navigation.navigate('Lugares', {lugares: places});
+  // }
 
   return (
     <View style={{flex: 1}}>

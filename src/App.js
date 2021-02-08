@@ -9,6 +9,7 @@ import LoginActivity from './pages/Login/LoginActivity';
 import ReactMapActivity from './pages/ReactMap/ReactMapActvity';
 import CadastroActivity from './pages/Cadastro/CadastroActivity';
 import EsqueceuSenhaActivity from './pages/EsqueceuSenha/EsqueceuSenhaActivity';
+import LugaresActivity from './pages/Lugares/LugarActivity'
 
 const Stack = createStackNavigator();
 
@@ -20,7 +21,8 @@ export default function App(){
         <Stack.Screen name="Login" component={LoginActivity} options={{headerShown: false}} />
         <Stack.Screen name="Cadastro" component={CadastroActivity}/>
         <Stack.Screen name="ReactMap" component={ReactMapActivity} />
-        <Stack.Screen name="Esqueceu a Senha" component={EsqueceuSenhaActivity} />
+        <Stack.Screen name="Esqueceu a Senha" component={EsqueceuSenhaActivity}/>
+        <Stack.Screen name="Lugares" component={LugaresActivity}/>
       </Stack.Navigator>
     </NavigationContainer>
 
