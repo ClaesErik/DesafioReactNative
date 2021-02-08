@@ -12,7 +12,7 @@ Para o projeto foram utilizadoS:
   - O banco de dados Realm para salvar os dados dos usuários cadastrados;
   - Api Google Maps para apresentar o mapa e a localização atual do usuário;
   - Api Google Places para receber os lugares próximos ao usuário;
-    - Foram recebidos 20 lugares em um raio de 2Km, os dados estão sendo mostrados no log e não visualmente na aplicação.
+    - Foram recebidos todos os lugares em um raio de 2Km, os dados estão sendo mostrados no log e não visualmente na aplicação.
   
 Pendências:
   - Adicionar validações nos campos de email e senha;
